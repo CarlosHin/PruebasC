@@ -11,6 +11,50 @@ int main(){
   scanf("%d",&filas2);
   printf("Columnas matriz 2: ");
   scanf("%d",&col2);
-  printf("\nMatriz 1 %dx%d", filas1,col1);
+  printf("\nMatriz 1: %dx%d\n", filas1,col1);
+  printf("\nMatriz 2: %dx%d\n", filas2,col2);
+  if(col1 != filas2){
+    printf("Las columnas de la matriz 1 no coinciden con las filas de la 2\n");
+	
+  }else{
+    int matriz1[filas1][col1];
+    int matriz2[filas2][col2];
+    printf("Matriz 1: \n");
+    for(int i= 0;i<filas1;i++){
+        for(int j=0;j<col1;j++){
+            printf("%d x %d:", i,j);
+            scanf("%d",&matriz1[i][j]);
+            
+        }
+    }    
+    printf("Matriz 2: \n");
+    for(int i= 0;i<filas2;i++){
+        for(int j=0;j<col2;j++){
+            printf("%d x %d:", i,j);
+            scanf("%d",&matriz2[i][j]);
+            
+        }
+    }    
+
+
+    for(int i= 0;i<filas1;i++){
+        for(int j=0;j<col1;j++){
+            printf("%4d %s",matriz1[i][j],(j==col1-1) ? "\n" : " ");
+        }
+    }    
+    printf("X  \n");
+    for(int i= 0;i<filas2;i++){
+        for(int j=0;j<col2;j++){
+            printf("%4d %s",matriz2[i][j],(j==col2-1) ? "\n" : " ");
+        }
+    }    
+    int matrizResultado[filas1][col2];
+    for(int col = 0;col<col2;col++){
+        for(int i = 0;i<filas1;i++){
+                 
+        }
+    }
+    
+  }
   return 0;
 }
