@@ -37,6 +37,7 @@ int main(){
     }
 
 
+    printf("\n");
     for(int i= 0;i<filas1;i++){
         for(int j=0;j<col1;j++){
             printf("%4d %s",matriz1[i][j],(j==col1-1) ? "\n" : " ");
@@ -53,13 +54,14 @@ int main(){
         for(int i = 0;i<filas1;i++){
           int res = 0;
           for(int x =0; x<col1;x++){
-            res += matriz1[i][x] + matriz2[x][col];
+            res += matriz1[i][x] * matriz2[x][col];
           }
-          matrizResultado[i][col];
+          matrizResultado[i][col] = res;
 
         }
     }
 
+    printf("\n");
     for(int i= 0;i<filas2;i++){
         for(int j=0;j<col2;j++){
             printf("%4d %s",matrizResultado[i][j],(j==col2-1) ? "\n" : " ");
