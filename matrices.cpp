@@ -2,23 +2,38 @@
 #include <stdlib.h>
 #include <ctime>
 #include <omp.h>
-#include "funMatrices.cpp"
 
 int size =2000;
-void multMatrices(int **&matriz1, int **&matriz2, int **&resultado);
+void multMatricesPar(int **&matriz1, int **&matriz2, int **&resultado);
+void multMatricesSec(int **&matriz1, int **&matriz2, int **&resultado);
 
 int main(int argc, char *argv[]){
     int imprimir = 0;
-    if(argc > 3){
+    int paralelo = 1;
+    if(argc > 4){
       printf("Argumentos introducidos no validos\n" );
+      printf("Formato:\n" );
+      printf("programa [size][parelo/secuencial][imprimir resultado/no imprimir]\n" );
+
+
     }else{
-      if(argc ==3){
+      if(argc ==4){
         size = atoi( argv[1] );
-        imprimir = atoi(argv[2]);
+        paralelo = atoi(argv[2]);
+        imprimir = atoi(argv[3]);
+
+      }else if(argc == 3){
+        size = atoi( argv[1] );
+        paralelo = atoi(argv[2]);
+
+
+
       }else if(argc == 2){
         size = atoi( argv[1] );
 
       }
+      printf("Matrices de tamaño %d, %s\n",size , (paralelo) ? "Paralelo" : "Secuencial" );
+
       printf("%d\n", size);
       srand((unsigned)time(0));
 
@@ -42,8 +57,10 @@ int main(int argc, char *argv[]){
           }
       }
 
-
-      multMatrices(mat1,mat2, matRes);
+      if(paralelo)
+        multMatricesPar(mat1,mat2, matRes);
+      else
+        multMatricesSec(mat1,mat2, matRes);
       if(imprimir){
       printf("Matriz 1: \n");
       for(int i= 0;i<size;i++){
@@ -70,8 +87,9 @@ int main(int argc, char *argv[]){
   }
 	return 0;
 }
-/*
-void multMatrices(int **&matriz1, int **&matriz2, int **&resultado){
+
+
+void multMatricesPar(int **&matriz1, int **&matriz2, int **&resultado){
 	int res = 0;
   int **matAux = (int **)malloc (size*sizeof(int *));
   for(int i = 0; i< size;i++){
@@ -85,8 +103,31 @@ void multMatrices(int **&matriz1, int **&matriz2, int **&resultado){
   }
   #pragma omp parallel num_threads(4)
     {
-
         #pragma omp for
+	      for(int i = 0;i<size;i++){
+          for(int j = 0;j<size;j++){
+            for(int x =0; x<size;x++){
+            resultado[i][j] += matriz1[i][x] * matAux[i][x];
+            }
+
+          }
+        }
+    }
+}
+
+void multMatricesSec(int **&matriz1, int **&matriz2, int **&resultado){
+	int res = 0;
+  int **matAux = (int **)malloc (size*sizeof(int *));
+  for(int i = 0; i< size;i++){
+      matAux[i] = (int *)malloc(size*sizeof(int));
+  }
+  for(int i= 0;i<size;i++){
+      for(int j=0;j<size;j++){
+          matAux[i][j] = matriz2[j][i];
+
+      }
+  }
+
 	for(int i = 0;i<size;i++){
 
         for(int j = 0;j<size;j++){
@@ -96,6 +137,5 @@ void multMatrices(int **&matriz1, int **&matriz2, int **&resultado){
 
         }
     }
-  }
+
 }
-*/

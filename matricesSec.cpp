@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctime>
-#include <omp.h>
-#include "funMatrices.cpp"
 
-int size =2000;
+int size =10;
 void multMatrices(int **&matriz1, int **&matriz2, int **&resultado);
 
 int main(int argc, char *argv[]){
@@ -70,7 +68,7 @@ int main(int argc, char *argv[]){
   }
 	return 0;
 }
-/*
+
 void multMatrices(int **&matriz1, int **&matriz2, int **&resultado){
 	int res = 0;
   int **matAux = (int **)malloc (size*sizeof(int *));
@@ -83,10 +81,7 @@ void multMatrices(int **&matriz1, int **&matriz2, int **&resultado){
 
       }
   }
-  #pragma omp parallel num_threads(4)
-    {
 
-        #pragma omp for
 	for(int i = 0;i<size;i++){
 
         for(int j = 0;j<size;j++){
@@ -96,6 +91,5 @@ void multMatrices(int **&matriz1, int **&matriz2, int **&resultado){
 
         }
     }
-  }
+
 }
-*/
