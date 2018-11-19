@@ -102,7 +102,6 @@ void multMatricesPar(int **&matriz1, int **&matriz2, int **&resultado){
 
       }
   }
-  time_t start = time(0);
     #pragma omp parallel num_threads(hilos)
     {
         #pragma omp for
@@ -115,8 +114,7 @@ void multMatricesPar(int **&matriz1, int **&matriz2, int **&resultado){
           }
         }
     }
-    double seconds_since_start = difftime( time(0), start);
-    printf("Segundos: %f\n", seconds_since_start);
+
 }
 
 void multMatricesSec(int **&matriz1, int **&matriz2, int **&resultado){
@@ -132,17 +130,11 @@ void multMatricesSec(int **&matriz1, int **&matriz2, int **&resultado){
           matAux[i][j] = matriz2[j][i];
       }
   }
-  time_t start = time(0);
-
 	for(int i = 0;i<size;i++){
         for(int j = 0;j<size;j++){
           for(int x =0; x<size;x++){
             resultado[i][j] += matriz1[i][x] * matAux[i][x];
           }
-
         }
     }
-  double seconds_since_start = difftime( time(0), start);
-  printf("Segundos: %f\n", seconds_since_start);
-
 }
