@@ -53,6 +53,8 @@ int main(int argc, char *argv[]){
           for(int j=0;j<size;j++){
               mat1[i][j] = min + rand() % (( max + 1 ) - min);
               mat2[i][j] = min + rand() % (( max + 1 ) - min);
+              mat1[i][j] = 2;
+              mat2[i][j] = 2;
 
 
           }
@@ -108,9 +110,11 @@ void multMatricesPar(int **&matriz1, int **&matriz2, int **&resultado){
         #pragma omp for
 	      for(int i = 0;i<size;i++){
           for(int j = 0;j<size;j++){
+            int res = 0;
             for(int x =0; x<size;x++){
-            resultado[i][j] += matriz1[i][x] * matAux[i][x];
+              res += matriz1[i][x] * matAux[i][x];
             }
+            resultado[i][j] = res;
 
           }
         }
@@ -135,13 +139,17 @@ void multMatricesSec(int **&matriz1, int **&matriz2, int **&resultado){
   time_t start = time(0);
 
 	for(int i = 0;i<size;i++){
+
         for(int j = 0;j<size;j++){
+          int res = 0;
           for(int x =0; x<size;x++){
-            resultado[i][j] += matriz1[i][x] * matAux[i][x];
+            res += matriz1[i][x] * matAux[i][x];
           }
+          resultado[i][j] = res;
 
         }
-    }
+  }
+
   double seconds_since_start = difftime( time(0), start);
   printf("Segundos: %f\n", seconds_since_start);
 
